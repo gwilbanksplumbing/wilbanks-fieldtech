@@ -704,6 +704,7 @@
           newValue: name,
           storageArea: localStorage
         }));
+        window.dispatchEvent(new CustomEvent('wc_auth_ready'));
       } catch {}
     }
     _doSync();
