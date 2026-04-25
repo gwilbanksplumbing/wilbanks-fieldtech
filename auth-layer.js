@@ -695,6 +695,7 @@
         const name = user.displayName || user.username || '';
         if (!name) return;
         localStorage.setItem('wc_tech_name', name);
+        localStorage.setItem('wc_tech_role', user.role || '');
         // Dispatch storage event so React state in hb() picks up the new value
         // even though it was set in the same window (storage event normally only
         // fires in OTHER windows, so we dispatch it manually)
