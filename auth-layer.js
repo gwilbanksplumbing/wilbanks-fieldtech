@@ -1109,6 +1109,12 @@
               setTimeout(_applyHash, 500);
             }
           } catch {}
+          // If mustChangePassword, show change-password screen before launching
+          if (user.mustChangePassword) {
+            if (root) root.style.display = 'none';
+            renderChangePassword();
+            return;
+          }
           // Sync display name into field tech app header
           syncFieldTechName(user);
           // Start inactivity timer
