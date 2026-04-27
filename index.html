@@ -20,15 +20,17 @@
 
     <title>WC Field Tech</title>
     <script src="./auth-layer.js?v=1776916504"></script>
-    <script type="module" crossorigin src="./assets/index-Dd5Dm7kM-1776916504.js"></script>
+    <script type="module" crossorigin src="./assets/index-Dd5Dm7kM.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DJ9_rgp-.css">
   </head>
   <body>
     <div id="root"></div>
     <script>
+      // Unregister any old service workers so stale cache doesn't block updates
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js')
-          .catch(function(e) { console.warn('[SW] Registration failed:', e); });
+        navigator.serviceWorker.getRegistrations().then(regs => {
+          regs.forEach(r => r.unregister());
+        });
       }
     </script>
   </body>
