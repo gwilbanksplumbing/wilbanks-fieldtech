@@ -325,6 +325,7 @@
     // Unhide root
     const root = document.getElementById("root");
     if (root) root.style.display = "";
+    document.documentElement.classList.add("dark");
   }
 
   // ── Login screen ──────────────────────────────────────────────────────────
@@ -1132,6 +1133,7 @@
           window.__WC_LOGOUT = logout;
           // Token valid — show app and inject UI elements
           if (root) root.style.display = "";
+          document.documentElement.classList.add("dark");
           // Restore the hash route from before the refresh
           try {
             const savedHash = sessionStorage.getItem('wc_last_hash');
