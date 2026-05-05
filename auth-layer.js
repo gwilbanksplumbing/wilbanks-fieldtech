@@ -325,7 +325,6 @@
     // Unhide root
     const root = document.getElementById("root");
     if (root) root.style.display = "";
-    document.documentElement.classList.add("dark");
   }
 
   // ── Login screen ──────────────────────────────────────────────────────────
@@ -621,7 +620,32 @@
     // Only offer Face ID to field tech users (tech/both) — not dashboard-only roles
     const isTechRole = true; // All roles can use Face ID
 
-    launchApp();
+    if (faceIdAvailable && isTechRole) {
+      // Credentials are stale if server has them but they've never successfully
+      // authenticated (WEBAUTHN_VALID_KEY not set) — wipe and re-prompt
+      const stale = (hasWebAuthn || alreadyPrompted) && !credentialValid;
+      if (stale) {
+        const tok = _token || localStorage.getItem(TOKEN_KEY) || '';
+        const wipe = tok
+          ? _origFetch(API + '/api/auth/webauthn', { method: 'DELETE', headers: { 'Authorization': 'Bearer ' + tok } }).catch(() => {})
+          : Promise.resolve();
+        wipe.then(() => {
+          try {
+            localStorage.removeItem(WEBAUTHN_PROMPT_KEY);
+            localStorage.removeItem(WEBAUTHN_VALID_KEY);
+          } catch {}
+          currentUser.hasWebAuthn = false;
+          renderFaceIdPrompt();
+        });
+        return;
+      }
+      // Already set up and working — skip prompt
+      if (alreadyPrompted && credentialValid) { launchApp(); return; }
+      // Fresh user — never prompted yet
+      renderFaceIdPrompt();
+    } else {
+      launchApp();
+    }
   }
 
   function launchApp() {
@@ -1108,7 +1132,6 @@
           window.__WC_LOGOUT = logout;
           // Token valid — show app and inject UI elements
           if (root) root.style.display = "";
-          document.documentElement.classList.add("dark");
           // Restore the hash route from before the refresh
           try {
             const savedHash = sessionStorage.getItem('wc_last_hash');
