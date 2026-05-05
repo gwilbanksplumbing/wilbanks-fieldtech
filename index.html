@@ -2,9 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
     <!-- PWA Meta -->
@@ -22,22 +19,23 @@
     <link rel="manifest" href="./manifest.json" />
 
     <title>WC Field Tech</title>
-    <script src="./auth-layer.js?v=1777999999"></script>
-    <script type="module" crossorigin src="./assets/index-Dd5Dm7kM-1777258173.js"></script>
+    <style>
+  html, body { background: #09090b; margin: 0; padding: 0; height: 100%; }
+  body { position: fixed; width: 100%; height: 100%; overflow: hidden; }
+  #root { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #09090b; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    </style>
+    <script src="./auth-layer.js?v=1776916504"></script>
+    <script type="module" crossorigin src="./assets/index-Dd5Dm7kM.js?v=1777596332"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DJ9_rgp-.css">
   </head>
   <body>
     <div id="root"></div>
     <script>
-      // Unregister all service workers and clear caches so updates always deliver
+      // Unregister any old service workers so stale cache doesn't block updates
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.getRegistrations().then(regs => {
           regs.forEach(r => r.unregister());
         });
-      }
-      // Clear all caches so iOS doesn't serve stale index.html
-      if ('caches' in window) {
-        caches.keys().then(keys => keys.forEach(k => caches.delete(k)));
       }
     </script>
   </body>
