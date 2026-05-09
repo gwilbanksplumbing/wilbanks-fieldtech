@@ -40,7 +40,14 @@ self.addEventListener("push", (e) => {
     data: { appointmentId: data.appointmentId },
   };
 
-  e.waitUntil(self.registration.showNotification(title, options));
+  e.waitUntil(
+    Promise.all([
+      self.registration.showNotification(title, options),
+      data.badgeCount != null && navigator.setAppBadge
+        ? navigator.setAppBadge(data.badgeCount)
+        : Promise.resolve()
+    ])
+  );
 });
 
 self.addEventListener("notificationclick", (e) => {
