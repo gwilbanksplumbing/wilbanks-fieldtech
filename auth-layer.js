@@ -139,7 +139,7 @@
 
       const verifyRes = await _origFetch(API + "/api/auth/webauthn/authenticate/verify", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "X-App-Source": "fieldtech" },
         body: JSON.stringify(assertionBody),
       });
       if (!verifyRes.ok) return null;
@@ -405,7 +405,7 @@
       try {
         const res = await _origFetch(API + "/api/auth/login", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", "X-App-Source": "fieldtech" },
           body: JSON.stringify({ username, password }),
         });
         const data = await res.json();
