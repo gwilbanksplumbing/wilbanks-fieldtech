@@ -20,11 +20,11 @@
 
     <title>WC Field Tech</title>
     <style>
-  html, body { background: #09090b; margin: 0; padding: 0; height: 100dvh; overflow: hidden; }
-  #root { position: relative; width: 100%; height: 100dvh; background: #09090b; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  html, body { background: #09090b; margin: 0; padding: 0; height: 100%; }
+  body { position: fixed; width: 100%; height: 100%; overflow: hidden; }
+  #root { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #09090b; overflow-y: auto; -webkit-overflow-scrolling: touch; }
     </style>
     <script>
-      // Register SW early so push subscriptions work
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js', {scope: './'}).catch(function(e) {
           console.warn('[sw]', e);
@@ -32,11 +32,10 @@
       }
     </script>
     <script src="./auth-layer.js?v=1776916504"></script>
-    <script type="module" crossorigin src="./assets/index-Dd5Dm7kM.js?v=1778443100"></script>
+    <script type="module" crossorigin src="./assets/index-Dd5Dm7kM.js?v=1778443400"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DJ9_rgp-.css">
   </head>
   <body>
     <div id="root"></div>
-
   </body>
 </html>
