@@ -20,8 +20,10 @@
 
     <title>WC Field Tech</title>
     <style>
+  :root { --sab: env(safe-area-inset-bottom, 34px); }
   html, body { background: #09090b; margin: 0; padding: 0; height: 100dvh; overflow: hidden; }
   #root { position: relative; width: 100%; height: 100dvh; background: #09090b; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  #wc-nav { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 50 !important; transform: translateZ(0); -webkit-transform: translateZ(0); }
     </style>
     <script>
       // Register SW early so push subscriptions work
@@ -32,7 +34,7 @@
       }
     </script>
     <script src="./auth-layer.js?v=1776916504"></script>
-    <script type="module" crossorigin src="./assets/index-Dd5Dm7kM.js?v=1778436800"></script>
+    <script type="module" crossorigin src="./assets/index-Dd5Dm7kM.js?v=1778434900"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DJ9_rgp-.css">
   </head>
   <body>
