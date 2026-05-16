@@ -1,4 +1,4 @@
-const CACHE = "wc-fieldtech-v67";
+const CACHE = "wc-fieldtech-v68";
 const API_BASE = "https://wilbanks-server-production.up.railway.app";
 
 self.addEventListener("install", () => {
@@ -7,15 +7,59 @@ self.addEventListener("install", () => {
 
 self.addEventListener("activate", (e) => {
   e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.map(k => caches.delete(k)))
-    ).then(() => self.clients.claim())
+    caches.keys()
+      .then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
+      .then(() => self.clients.claim())
   );
 });
 
+// Network-first with cache fallback.
+// - GET requests for our own app shell (HTML/JS/CSS/images) are cached opportunistically.
+//   If the network fails, we serve the cached copy so the PWA still loads on flaky cell.
+// - API calls (anything to API_BASE) are NEVER cached — we don't want stale job data.
+//   They pass through normally; failure falls back to a clean 503 (not a fake "Offline" page).
 self.addEventListener("fetch", (e) => {
-  if (e.request.method !== "GET") return;
-  e.respondWith(fetch(e.request).catch(() => new Response("Offline", { status: 503 })));
+  const req = e.request;
+  if (req.method !== "GET") return;
+
+  const url = new URL(req.url);
+  const isApi = url.origin === API_BASE || url.href.startsWith(API_BASE);
+
+  if (isApi) {
+    // Pass-through; on network failure return a JSON-ish 503 so the app can detect it.
+    e.respondWith(
+      fetch(req).catch(() =>
+        new Response(JSON.stringify({ error: "offline", code: "NETWORK_UNAVAILABLE" }), {
+          status: 503,
+          headers: { "Content-Type": "application/json" },
+        })
+      )
+    );
+    return;
+  }
+
+  // App shell: network-first, cache on success, fall back to cache on failure.
+  e.respondWith(
+    fetch(req)
+      .then(resp => {
+        // Only cache OK basic/cors responses (don't cache opaque/error responses).
+        if (resp && resp.ok && (resp.type === "basic" || resp.type === "cors")) {
+          const copy = resp.clone();
+          caches.open(CACHE).then(c => c.put(req, copy)).catch(() => {});
+        }
+        return resp;
+      })
+      .catch(() =>
+        caches.match(req).then(cached => {
+          if (cached) return cached;
+          // Last-resort fallback for top-level navigations: try the cached root HTML.
+          if (req.mode === "navigate") {
+            return caches.match("./") || caches.match("./index.html");
+          }
+          return new Response("Offline", { status: 503 });
+        })
+      )
+  );
 });
 
 // ── Push notifications ──────────────────────────────────────────────────────
