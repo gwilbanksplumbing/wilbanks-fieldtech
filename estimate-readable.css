@@ -1,0 +1,232 @@
+/*
+ * Field App — Estimate Builder Readability Pass (CSS-only, no JS edits)
+ * Date: 2026-05-23
+ * Reason: Older technician reports text on Create Estimate is too small / dim.
+ *
+ * SAFETY: Scoped to the estimate bottom-sheet dialog ONLY using its unique
+ * class signature: a fixed-position, z-50, black/70 backdrop with items-end
+ * justify-center (a bottom sheet). This pattern only appears on the estimate
+ * builder in the live bundle (z-40 sm:items-center variant is a different
+ * dialog and is NOT affected).
+ *
+ * No JavaScript was changed. The bundle index-Dd5Dm7kM.js is untouched.
+ * If anything looks wrong, remove the <link> tag from index.html and it's gone.
+ */
+
+/* ── Scope root ─────────────────────────────────────────────────────────── */
+/* Tailwind escapes "/" as "\/" — the bg-black/70 class becomes .bg-black\/70 */
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center {
+  /* container marker — no styling here, just used as scope */
+}
+
+/* ── 1. Larger, clearer text ────────────────────────────────────────────── */
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center .text-xs {
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+}
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center .text-sm {
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+}
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center .text-2xl {
+  font-size: 28px !important;
+  line-height: 1.2 !important;
+}
+
+/* ── 2. Higher contrast ─────────────────────────────────────────────────── */
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center .text-muted-foreground {
+  color: #d4d4d8 !important; /* zinc-300, up from zinc-400/500 */
+}
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center .text-foreground {
+  color: #fafafa !important;
+}
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center input::placeholder,
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center textarea::placeholder {
+  color: #a1a1aa !important;
+  opacity: 1 !important;
+}
+
+/* ── 3. Bigger tap targets and inputs ───────────────────────────────────── */
+
+/* Inputs: prevent iOS Safari zoom-on-focus by hitting 17px; raise from h-9 */
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center input,
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center textarea {
+  font-size: 17px !important;
+  min-height: 44px !important;
+}
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center .h-9 {
+  height: 44px !important;
+}
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center .h-12 {
+  height: 52px !important;
+}
+
+/* Save Draft / Send to Customer button text */
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center .h-12 {
+  font-size: 17px !important;
+  font-weight: 600 !important;
+}
+
+/* "Add line item" and "+ Diagnostic/Trip Fee" buttons (text-sm links) */
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center button {
+  font-weight: 600 !important;
+}
+
+/* Make line-item delete icon easier to tap (was text-muted-foreground/40) */
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center .col-span-1 {
+  min-height: 44px !important;
+}
+
+/* Total row — bump label */
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center .font-semibold.text-muted-foreground {
+  font-size: 17px !important;
+  color: #e4e4e7 !important;
+}
+
+/* ── 4. Column header row (Description / Qty / Price / Amt) ─────────────── */
+/*
+ * The actual header row in the bundle is:
+ *   <div class="grid grid-cols-12 gap-1 text-[10px] text-muted-foreground/70 px-1">
+ *     <span class="col-span-5">Description</span> ...
+ *
+ * The styling lives on the PARENT div (text-[10px] and text-muted-foreground/70).
+ * The spans inherit. So we target the parent's exact class signature.
+ */
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center
+  .grid.grid-cols-12.gap-1.text-\[10px\].text-muted-foreground\/70 {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #f4f4f5 !important; /* zinc-100, near-white */
+  opacity: 1 !important;     /* defeat the /70 alpha */
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* Also bump the "LINE ITEMS" label above the header row */
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center
+  p.text-xs.font-semibold.text-muted-foreground.uppercase.tracking-wide {
+  font-size: 15px !important;
+  color: #f4f4f5 !important;
+}
+
+/* ── 5d. Line-item Amt cell — keep it inside its column ───────────── */
+/*
+ * Amt cell signature:
+ *   col-span-2 text-right text-sm font-semibold text-foreground pr-1
+ *
+ * The v72 .text-sm bump (14px -> 16px) was making 3+ digit dollar amounts
+ * ($100+) overflow into the trashcan column. Pull this specific cell back
+ * to a fit-friendly size and add right padding to keep the dollar amount
+ * from visually touching the trashcan icon.
+ */
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center
+  .col-span-2.text-right.text-sm.font-semibold.text-foreground.pr-1 {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  padding-right: 10px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* ── 7. Part / Labor type pills: clearer selected vs unselected state ── */
+/*
+ * Each line item row has a pair of pills above the description:
+ *   <button class="px-2.5 py-0.5 text-xs rounded-full bg-blue-500 text-white font-semibold">Part</button>  (selected)
+ *   <button class="px-2.5 py-0.5 text-xs rounded-full border border-border/60 text-muted-foreground">Labor</button>  (unselected)
+ * Problem: the unselected pill is almost invisible (60%-opacity border, dim
+ * gray text). Hard for the older tech to tell which one is active.
+ * Fix: bigger, brighter pills with a strong visual gap between states.
+ */
+
+/* Selected pill — same blue as Save Draft button (bg-blue-600) */
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center
+  .px-2\.5.py-0\.5.text-xs.rounded-full.bg-blue-500.text-white.font-semibold {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  padding: 4px 12px !important;
+  border: 1px solid #1d4ed8 !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.25) !important;
+}
+
+/* Unselected pill — bright white outline, transparent fill, readable text */
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center
+  .px-2\.5.py-0\.5.text-xs.rounded-full.border.border-border\/60.text-muted-foreground {
+  background: transparent !important;
+  color: #d4d4d8 !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  padding: 4px 12px !important;
+  border: 1px solid #fafafa !important;
+}
+
+/* ── 6. Stack footer buttons vertically so 'Send to Customer' doesn't clip ─ */
+/*
+ * The estimate footer is a horizontal flex row of two flex-1 buttons. On
+ * narrow iPhones the 'Send to Customer' label gets cut off. Force the
+ * container to stack the buttons vertically so each gets full width.
+ * Container class signature:
+ *   shrink-0 px-5 py-4 border-t border-border flex gap-3
+ */
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center
+  .shrink-0.border-t.border-border.flex.gap-3 {
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center
+  .shrink-0.border-t.border-border.flex.gap-3 > button {
+  width: 100% !important;
+  font-size: 16px !important;
+}
+
+/* ── 5b. White borders on line-item fields (Description, Qty, Price) ──── */
+/*
+ * All three line-item fields share the signature:
+ *   bg-muted/50 border border-border/50 rounded-xl
+ * The border-border/50 is gray at 50% opacity — nearly invisible.
+ * Override to a solid white border for clear field outlines.
+ */
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center
+  .bg-muted\/50.border.border-border\/50.rounded-xl {
+  border-color: #fafafa !important;
+  border-width: 1.5px !important;
+}
+
+/* ── 5c. Line-item delete trashcan ──────────────────────── */
+/*
+ * The trash button has class "col-span-1 ... text-muted-foreground/40"
+ * which renders at 40% opacity gray — almost invisible. Brighten to white
+ * and bump the icon size for easier tap target.
+ */
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center
+  button.col-span-1.text-muted-foreground\/40 {
+  color: #fafafa !important;
+  opacity: 1 !important;
+}
+
+.fixed.inset-0.z-50.bg-black\/70.items-end.justify-center
+  button.col-span-1.text-muted-foreground\/40 svg {
+  width: 20px !important;
+  height: 20px !important;
+  stroke-width: 2.25 !important;
+}
