@@ -649,24 +649,39 @@
   }
 
   function launchApp() {
-    dismissOverlay();
+    // NOTE: do NOT call dismissOverlay() here. The overlay must stay fully
+    // opaque (opacity 1) throughout the navigation dance below so the momentary
+    // React /login render never bleeds through the fading overlay (~60ms flash).
     window.__WC_USER = currentUser;
     window.__WC_LOGOUT = logout;
-    // Restore the hash route from before the refresh
+    // Unhide #root early — it sits UNDER the opaque overlay, so any momentary
+    // /login render is invisible while React transitions onto the jobs route.
+    const root = document.getElementById("root");
+    if (root) root.style.display = "";
+    // Determine the target route: the saved hash from before the refresh if one
+    // exists (and is not the bare root), otherwise default to the jobs route.
+    let target = 'jobs';
     try {
       const savedHash = sessionStorage.getItem('wc_last_hash');
       if (savedHash && savedHash !== '#/' && savedHash !== '#') {
         sessionStorage.removeItem('wc_last_hash');
-        // Try immediately, then retry after React has mounted — wouter picks up
-        // window.location.hash changes via its own popstate/hashchange listeners
-        const _applyHash = () => {
-          try { window.location.hash = savedHash.replace(/^#/, ''); } catch {}
-        };
-        _applyHash();
-        setTimeout(_applyHash, 150);
-        setTimeout(_applyHash, 500);
+        target = savedHash.replace(/^#/, '');
       }
     } catch {}
+    // Load-bearing destructive hash sequence: set the target hash, then dispatch
+    // a hashchange, blank the hash, and restore it. The blank-then-restore is
+    // what forces React's hash router off /login onto the target route (a plain
+    // hashchange with the hash unchanged does NOT move it). Only AFTER the jobs
+    // hash is restored and React has committed do we fade the overlay out.
+    try { window.location.hash = target; } catch {}
+    setTimeout(() => {
+      window.dispatchEvent(new HashChangeEvent('hashchange', { newURL: window.location.href, oldURL: window.location.href }));
+      window.location.hash = '';
+      setTimeout(() => {
+        window.location.hash = target || 'jobs';
+        requestAnimationFrame(() => { setTimeout(dismissOverlay, 100); });
+      }, 20);
+    }, 50);
     // Sync display name into the field tech app's localStorage key
     // so the top-left header always shows the logged-in user's name
     syncFieldTechName(currentUser);
