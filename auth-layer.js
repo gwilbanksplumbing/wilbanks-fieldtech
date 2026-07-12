@@ -221,11 +221,11 @@
     .wc-logo img { width: 48px; height: 48px; border-radius: 10px; object-fit: cover; }
     .wc-logo-text { line-height: 1.2; }
     .wc-logo-text h1 { margin:0; font-size: 17px; font-weight: 700; color: #fafafa; }
-    .wc-logo-text p { margin:0; font-size: 12px; color: #71717a; }
+    .wc-logo-text p { margin:0; font-size: 12px; color: #ffffff; }
     .wc-title { font-size: 22px; font-weight: 700; color: #fafafa; margin: 0 0 6px; }
-    .wc-subtitle { font-size: 14px; color: #71717a; margin: 0 0 24px; }
+    .wc-subtitle { font-size: 14px; color: #ffffff; margin: 0 0 24px; }
     .wc-field { margin-bottom: 16px; }
-    .wc-label { display: block; font-size: 12px; font-weight: 500; color: #a1a1aa; margin-bottom: 6px; letter-spacing: 0.02em; text-transform: uppercase; }
+    .wc-label { display: block; font-size: 12px; font-weight: 500; color: #ffffff; margin-bottom: 6px; letter-spacing: 0.02em; text-transform: uppercase; }
     .wc-input {
       width: 100%; box-sizing: border-box;
       background: #09090b; border: 1px solid #3f3f46;
@@ -280,19 +280,19 @@
     .wc-eye-btn {
       position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
       background: none; border: none; cursor: pointer; padding: 4px;
-      color: #71717a; display: flex; align-items: center; justify-content: center;
+      color: #ffffff; display: flex; align-items: center; justify-content: center;
       -webkit-tap-highlight-color: transparent; min-width: 32px; min-height: 32px;
     }
-    .wc-eye-btn:hover { color: #a1a1aa; }
+    .wc-eye-btn:hover { color: #ffffff; }
 
     /* Change password screen */
-    .wc-change-pw-hint { font-size: 13px; color: #71717a; margin: 0 0 20px; }
+    .wc-change-pw-hint { font-size: 13px; color: #ffffff; margin: 0 0 20px; }
 
     /* Face ID prompt */
     .wc-faceid-icon { font-size: 48px; text-align: center; margin-bottom: 12px; }
-    .wc-faceid-desc { font-size: 14px; color: #a1a1aa; text-align: center; margin: 0 0 24px; line-height: 1.5; }
-    .wc-btn-skip { background: transparent; color: #71717a; font-size: 14px; border: none; cursor: pointer; width: 100%; padding: 8px; text-decoration: underline; }
-    .wc-btn-skip:hover { color: #a1a1aa; }
+    .wc-faceid-desc { font-size: 14px; color: #ffffff; text-align: center; margin: 0 0 24px; line-height: 1.5; }
+    .wc-btn-skip { background: transparent; color: #ffffff; font-size: 14px; border: none; cursor: pointer; width: 100%; padding: 8px; text-decoration: underline; }
+    .wc-btn-skip:hover { color: #ffffff; }
   `;
 
   function injectStyles() {
@@ -869,19 +869,19 @@
         <div style="padding:20px 24px 16px;border-bottom:1px solid #27272a;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
           <div>
             <h2 style="margin:0;font-size:18px;font-weight:700;color:#fafafa">User Management</h2>
-            <p style="margin:4px 0 0;font-size:13px;color:#71717a">Manage who can access the apps</p>
+            <p style="margin:4px 0 0;font-size:13px;color:#ffffff">Manage who can access the apps</p>
           </div>
-          <button id="wc-users-close" style="background:transparent;border:none;color:#71717a;cursor:pointer;font-size:20px;padding:4px 8px;line-height:1">&times;</button>
+          <button id="wc-users-close" style="background:transparent;border:none;color:#ffffff;cursor:pointer;font-size:20px;padding:4px 8px;line-height:1">&times;</button>
         </div>
         <div style="padding:20px 24px;border-bottom:1px solid #27272a;flex-shrink:0">
-          <h3 style="margin:0 0 14px;font-size:14px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">Add New User</h3>
+          <h3 style="margin:0 0 14px;font-size:14px;font-weight:600;color:#ffffff;text-transform:uppercase;letter-spacing:0.05em">Add New User</h3>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
             <div>
-              <label style="display:block;font-size:12px;color:#71717a;margin-bottom:5px">USERNAME</label>
+              <label style="display:block;font-size:12px;color:#ffffff;margin-bottom:5px">USERNAME</label>
               <input id="wc-new-username" placeholder="e.g. john" style="width:100%;box-sizing:border-box;background:#09090b;border:1px solid #3f3f46;border-radius:8px;padding:9px 12px;font-size:14px;color:#fafafa;outline:none" />
             </div>
             <div>
-              <label style="display:block;font-size:12px;color:#71717a;margin-bottom:5px">ROLE</label>
+              <label style="display:block;font-size:12px;color:#ffffff;margin-bottom:5px">ROLE</label>
               <select id="wc-new-role" style="width:100%;box-sizing:border-box;background:#09090b;border:1px solid #3f3f46;border-radius:8px;padding:9px 12px;font-size:14px;color:#fafafa;outline:none">
                 <option value="tech">Field Tech Only</option>
                 <option value="dispatcher">Dashboard Only</option>
@@ -891,12 +891,12 @@
             </div>
           </div>
           <div style="margin-bottom:12px">
-            <label style="display:block;font-size:12px;color:#71717a;margin-bottom:5px">DISPLAY NAME (optional)</label>
+            <label style="display:block;font-size:12px;color:#ffffff;margin-bottom:5px">DISPLAY NAME (optional)</label>
             <input id="wc-new-displayname" placeholder="Full name shown in app" style="width:100%;box-sizing:border-box;background:#09090b;border:1px solid #3f3f46;border-radius:8px;padding:9px 12px;font-size:14px;color:#fafafa;outline:none" />
           </div>
           <div style="display:flex;align-items:center;gap:10px">
             <div style="flex:1">
-              <label style="display:block;font-size:12px;color:#71717a;margin-bottom:5px">TEMP PASSWORD</label>
+              <label style="display:block;font-size:12px;color:#ffffff;margin-bottom:5px">TEMP PASSWORD</label>
               <input id="wc-new-password" type="text" value="Wilbanks1!" style="width:100%;box-sizing:border-box;background:#09090b;border:1px solid #3f3f46;border-radius:8px;padding:9px 12px;font-size:14px;color:#fafafa;outline:none" />
             </div>
             <button id="wc-add-user-btn" style="background:#3b82f6;border:none;color:#fff;border-radius:8px;padding:9px 20px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;margin-top:18px">Add User</button>
@@ -905,7 +905,7 @@
           <div id="wc-add-success" style="display:none;margin-top:8px;background:#14532d;border:1px solid #166534;color:#86efac;border-radius:6px;padding:8px 12px;font-size:13px"></div>
         </div>
         <div style="flex:1;overflow-y:auto;padding:16px 24px" id="wc-user-list-container">
-          <h3 style="margin:0 0 14px;font-size:14px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">Existing Users</h3>
+          <h3 style="margin:0 0 14px;font-size:14px;font-weight:600;color:#ffffff;text-transform:uppercase;letter-spacing:0.05em">Existing Users</h3>
           <div id="wc-user-list"><div style="color:#52525b;font-size:14px">Loading...</div></div>
         </div>
       </div>
@@ -969,10 +969,10 @@
         <div id="wc-user-row-${u.id}" style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#09090b;border:1px solid #27272a;border-radius:8px;margin-bottom:8px">
           <div>
             <div style="font-size:14px;font-weight:600;color:#fafafa">${u.display_name || u.username} <span style="font-size:12px;color:#52525b;font-weight:400">@${u.username}</span></div>
-            <div style="font-size:12px;color:#71717a;margin-top:2px">${u.role === 'admin' ? '🔑 Admin (Dashboard + Users)' : u.role === 'dispatcher' ? '🖥️ Dashboard Only' : u.role === 'both' ? '🖥️🔧 Dashboard + Field Tech' : '🔧 Field Tech Only'}</div>
+            <div style="font-size:12px;color:#ffffff;margin-top:2px">${u.role === 'admin' ? '🔑 Admin (Dashboard + Users)' : u.role === 'dispatcher' ? '🖥️ Dashboard Only' : u.role === 'both' ? '🖥️🔧 Dashboard + Field Tech' : '🔧 Field Tech Only'}</div>
           </div>
           <div style="display:flex;gap:6px;flex-shrink:0">
-            <button onclick="window.__wcResetPw(${u.id}, '${u.username}')" style="background:#27272a;border:none;color:#a1a1aa;border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer">Reset PW</button>
+            <button onclick="window.__wcResetPw(${u.id}, '${u.username}')" style="background:#27272a;border:none;color:#ffffff;border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer">Reset PW</button>
             ${u.id !== currentUser?.id ? `<button onclick="window.__wcDeleteUser(${u.id}, '${u.username}')" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#ef4444;border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer">Remove</button>` : '<span style="font-size:12px;color:#52525b;padding:6px 10px">(you)</span>'}
           </div>
         </div>
