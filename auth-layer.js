@@ -1114,8 +1114,38 @@
 
   }
 
+  // Clear the per-device "where he left off" state belonging to the technician
+  // signing out. This lives here as well as in the React bundle because the field
+  // app's Sign Out button is HIJACKED above (tryHijackLogoutBtn clones the button
+  // to strip React's listener), so on an installed phone THIS is the logout that
+  // runs and the React one never does.
+  //
+  // Neither record is cleared by signing out on its own: the reload below keeps
+  // the same browsing session alive, so sessionStorage survives it.
+  function clearLeftOffState() {
+    // The single most-recently-viewed job (teal "Last Viewed" card highlight).
+    try { sessionStorage.removeItem('wc_last_viewed_job'); } catch {}
+    // Every technician's record of which jobs he has opened (red "New" pills),
+    // including the legacy shared key written before it was keyed per technician.
+    // Not scoped to the departing user on purpose — the identity available at
+    // sign-out is exactly what cannot be trusted here.
+    try {
+      const doomed = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.indexOf('wc_seen_') === 0) doomed.push(k);
+      }
+      // Collected first, then removed — removing while iterating by index skips keys.
+      doomed.forEach(function (k) { try { localStorage.removeItem(k); } catch {} });
+    } catch {}
+    // The screen the app would otherwise reopen on, so the next technician does
+    // not land inside the previous one's job.
+    try { sessionStorage.removeItem('wc_last_hash'); } catch {}
+  }
+
   function logout() {
     clearToken();
+    clearLeftOffState();
     // Full page reload on logout — guarantees the next user starts with a
     // completely clean slate (no stale React state, query cache, or injected DOM)
     window.location.reload();
