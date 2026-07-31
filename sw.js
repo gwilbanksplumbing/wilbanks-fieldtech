@@ -1,4 +1,4 @@
-const CACHE = "wc-fieldtech-v83-bookdate";
+const CACHE = "wc-fieldtech-v84-callchip";
 const API_BASE = "https://wilbanks-server-production.up.railway.app";
 
 self.addEventListener("install", () => {
